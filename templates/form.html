@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario</title>
+    <style>
+        body {
+            background-image: url("/static/background.jpg");
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Buscar Ruta</h2>
+        <form method="POST" action="/ruta">
+            <div class="form-group">
+                <label for="aeropuerto_origen">Aeropuerto de origen:</label>
+                <input type="text" id="aeropuerto_origen" name="aeropuerto_origen">
+            </div>
+            <div class="form-group">
+                <label for="aeropuerto_destino">Aeropuerto de destino:</label>
+                <input type="text" id="aeropuerto_destino" name="aeropuerto_destino">
+            </div>
+            <button class="submit-button" type="submit">Buscar</button>
+        </form>
+        <div class="ruta-container">
+            {% if ruta_encontrada %}
+                <h3>Ruta encontrada:</h3>
+                <p>{{ ruta_encontrada }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
