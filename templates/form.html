@@ -1,40 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
     <title>Formulario</title>
-    <style>
-        body {
-            background-image: url("/static/background.jpg");
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            width: 300px;
-            margin: 0 auto;
-            margin-top: 100px;
-            padding: 20px;
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .submit-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
+    
 </head>
 <body>
     <div class="container">
@@ -42,20 +12,98 @@
         <form method="POST" action="/ruta">
             <div class="form-group">
                 <label for="aeropuerto_origen">Aeropuerto de origen:</label>
-                <input type="text" id="aeropuerto_origen" name="aeropuerto_origen">
+                <select id="aeropuerto_origen" name="aeropuerto_origen">
+                    {% for aeropuerto in aeropuertos %}
+                        <option value="{{ aeropuerto }}">{{ aeropuerto }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="form-group">
                 <label for="aeropuerto_destino">Aeropuerto de destino:</label>
-                <input type="text" id="aeropuerto_destino" name="aeropuerto_destino">
+                <select id="aeropuerto_origen" name="aeropuerto_origen">
+                    {% for aeropuerto in aeropuertos %}
+                        <option value="{{ aeropuerto }}">{{ aeropuerto }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <button class="submit-button" type="submit">Buscar</button>
         </form>
-        <div class="ruta-container">
-            {% if ruta_encontrada %}
-                <h3>Ruta encontrada:</h3>
-                <p>{{ ruta_encontrada }}</p>
-            {% endif %}
-        </div>
     </div>
 </body>
 </html>
+<style>
+    body {
+    background-image: url("/static/background.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+</style>
