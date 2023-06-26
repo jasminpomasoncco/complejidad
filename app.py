@@ -7,7 +7,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-def calcular_distancias_floyd_warshall(df):
+def calcular_distancias_warshall(df):
     num_aeropuertos = len(df)
     
     # Crear una matriz de distancias inicializada con infinito para todos los pares de aeropuertos
@@ -24,17 +24,16 @@ def calcular_distancias_floyd_warshall(df):
                 distancia = distance.distance(coordenadas_aeropuerto1, coordenadas_aeropuerto2).kilometers
                 distancias[i, j] = distancia
     
-    # Algoritmo de Floyd-Warshall
+    # Algoritmo de Warshall
     for k in range(num_aeropuertos):
         for i in range(num_aeropuertos):
             for j in range(num_aeropuertos):
-                distancias[i, j] = min(distancias[i, j], distancias[i, k] + distancias[k, j])
+                if distancias[i, j] > distancias[i, k] + distancias[k, j]:
+                    distancias[i, j] = distancias[i, k] + distancias[k, j]
     
     return distancias
 
-import heapq
-
-def calcular_distancia_minima(aeropuerto_origen, aeropuerto_destino, df, distancias):
+def calcular_distancia_minima_dijkstra(aeropuerto_origen, aeropuerto_destino, df, distancias):
     grafo = {}
     for i, row in df.iterrows():
         aeropuerto = row['Nombre']
@@ -81,8 +80,9 @@ def index():
         aeropuerto_origen = request.form['aeropuerto_origen']
         aeropuerto_destino = request.form['aeropuerto_destino']
         
-        distancias = calcular_distancias_floyd_warshall(df)
-        distancia_minima = calcular_distancia_minima(aeropuerto_origen, aeropuerto_destino, df, distancias)
+        distancias = calcular_distancias_warshall(df)
+        distancia_minima = calcular_distancia_minima_dijkstra(aeropuerto_origen, aeropuerto_destino, df, distancias)
+
         
         ruta_encontrada = f"La distancia más corta entre {aeropuerto_origen} y {aeropuerto_destino} es {distancia_minima} km."
 
