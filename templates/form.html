@@ -39,7 +39,10 @@
                     <button class="submit-button" type="button" onclick="buscarRuta()">Buscar</button>
                 </form>
             </div>
-            <div id="map"></div>
+            {% if graph_image %}
+            <h2>Gráfico de distancias:</h2>
+            <img src="{{ url_for('static', filename=graph_image) }}" alt="Graph">
+        {% endif %}
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -59,36 +62,6 @@
             xhr.send('aeropuerto_origen=' + encodeURIComponent(aeropuertoOrigen) +
                     '&aeropuerto_destino=' + encodeURIComponent(aeropuertoDestino));
         }
-
-        function initMap() {
-    var aeropuertoOrigen = document.getElementById('aeropuerto_origen').value;
-    var aeropuertoDestino = document.getElementById('aeropuerto_destino').value;
-
-    // Código para obtener las coordenadas de los aeropuertos y trazar la ruta
-    // utilizando Leaflet.js
-
-    var map = L.map('map').setView([0, 0], 2); // Establece la vista inicial del mapa
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-      maxZoom: 18
-    }).addTo(map);
-
-    // Crea un objeto Polyline de Leaflet.js para trazar la ruta
-    var polyline = L.polyline([[latitudOrigen, longitudOrigen], [latitudDestino, longitudDestino]], {
-      color: 'red',
-      weight: 3,
-      opacity: 0.7,
-      smoothFactor: 1
-    }).addTo(map);
-
-    // Ajusta la vista del mapa para mostrar la ruta trazada
-    map.fitBounds(polyline.getBounds());
-  }
-
-  // Llama a la función initMap cuando la página se haya cargado completamente
-  document.addEventListener('DOMContentLoaded', function () {
-    initMap();
-  });
     </script>
 </body>
 
